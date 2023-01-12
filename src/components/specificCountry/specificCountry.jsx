@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const SpecificCountry = () => {
 
     const obj = useParams();
-    // const [currentCountryName, setCurrentCountryName] = useState(obj.specificCountryName);
+    const [currentCountryName, setCurrentCountryName] = useState(obj.specificCountryName);
     const [currCountryBorders, setCurrCountryBorders] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [error, setError] = useState("");
@@ -16,7 +16,30 @@ const SpecificCountry = () => {
     const [currLanguages, setCurrLanguages] = useState('');
 
 
+    
+
     /**
+     * Handler function to navigate to a new specificCountry page 
+     * @param {*} countryName 
+     */
+    // const navigateToNewPage = (countryName) => {
+    //     navigate(`/specificCountry/${countryName}`, { replace: true });
+    //     navigate(0);
+
+    // }
+
+    /**
+     * If the user presses back, then we need to go back
+     */
+    const navigateBack = () => {
+        navigate(-1);
+    }
+
+    /**
+     * This hook runs when first loading the page
+     */
+    useEffect(() => {
+        /**
      * This retrieves the country's data
      * @param {*} countryName 
      */
@@ -74,30 +97,8 @@ const SpecificCountry = () => {
             }            
         }
     }
-
-    /**
-     * Handler function to navigate to a new specificCountry page 
-     * @param {*} countryName 
-     */
-    const navigateToNewPage = (countryName) => {
-        navigate(`/specificCountry/${countryName}`, { replace: true });
-        navigate(0);
-
-    }
-
-    /**
-     * If the user presses back, then we need to go back
-     */
-    const navigateBack = () => {
-        navigate(-1);
-    }
-
-    /**
-     * This hook runs when first loading the page
-     */
-    useEffect(() => {
-        retrieveSpecificCountryData(obj.specificCountryName);
-    });
+    retrieveSpecificCountryData(currentCountryName);
+    }, [currentCountryName, obj.specificCountryName]);
 
     if (error !== '') {
         return (
@@ -152,7 +153,7 @@ const SpecificCountry = () => {
                             
                             {currCountryBorders.length === 0 ?  <span> </span> : <><span className="dark:text-black" style={{ color: 'white' }}> Borders: &nbsp; </span> <span id="borders">
                                 {currCountryBorders.map((each) => (
-                                    <button className="back_button_color dark:text-black cursor-pointer hover:scale-105 hover:z-1 duration-300 dark:bg-white shadow-[0_0_40px_rgba(0,0,0,0.2)] mr-2 pl-4 pr-4 pt-2 pb-2 mb-2" value={each} onClick={(e) => navigateToNewPage(e.target.value)}>{each}</button>))}
+                                    <button onClick={() => setCurrentCountryName(each)} className="back_button_color dark:text-black cursor-pointer hover:scale-105 hover:z-1 duration-300 dark:bg-white shadow-[0_0_40px_rgba(0,0,0,0.2)] mr-2 pl-4 pr-4 pt-2 pb-2 mb-2" value={each}>{each}</button>))}
                             </span></>}
 
                             
