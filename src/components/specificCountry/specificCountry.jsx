@@ -97,7 +97,7 @@ const SpecificCountry = () => {
      */
     useEffect(() => {
         retrieveSpecificCountryData(currentCountryName);
-    }, []);
+    });
 
     if (error !== '') {
         return (
@@ -127,7 +127,7 @@ const SpecificCountry = () => {
                 </div>
                 <div className="flags_and_stats">
                     <div className="flag_left md:inline-block md:w-[50%]">
-                        <img src={currCountryObj.flag} className="country_flag w-full object-cover h-full"/>
+                        <img src={currCountryObj.flag} className="country_flag w-full object-cover h-full" alt="country flag"/>
                     </div>
                     <div className="information_right md:inline-block md:w-[50%]">
                         <div>
