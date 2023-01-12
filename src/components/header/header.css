@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@800&display=swap');
+
+.fa-moon-white {
+    color:white;
+}
+
+.fa-moon-dark {
+    color:black;
+}
+
+.where_in_world_color {
+    color:white !important;
+}
+.custom-background {
+    background: hsl(209, 23%, 22%);
+}
+
+.dm-text:hover {
+    cursor: pointer;
+}
+
+.text {
+    color:white;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 800;
+    font-size:30px;
+}
+
+.text:hover {
+    cursor: pointer;
+}

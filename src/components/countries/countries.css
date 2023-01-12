@@ -1,0 +1,78 @@
+.global {
+    margin-right:5%;
+    margin-left: 5%;
+    z-index: 1;
+}
+
+.card_body {
+    background: hsl(209,23%,22%);
+    z-index: 1;
+}
+
+.card_title {
+
+    font-weight: 600;
+    font-family: 'Nunito Sans', sans-serif;
+
+}
+
+
+.actual_population {
+    font-weight: 300;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.actual_region {
+    font-weight: 300;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.actual_capital {
+    font-weight: 300;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+
+.search_bar_and_filter {
+    padding-top:100px; 
+}
+.search_bar {
+    padding-top:50px;
+    /* flex-grow:3; */
+}
+
+.region_filter {
+    padding-top: 50px;
+    /* flex-grow:0.3 */
+}
+
+.error_msg {
+    margin-left:80px;
+    color:#ffffff;
+    padding-top:150px;
+}
+
+.loading_msg {
+    padding-top:150px;
+    color:#ffffff;
+}
+
+.search_bar_color {
+    background-color: hsl(209,23%,22%);
+    color:#ffffff;
+}
+
+.fal {
+    color: white;
+    z-index: 1;
+    
+}
+
+.dropdown_li {
+    background-color: hsl(209,23%,22%);
+}
+
+.dropdown_li:hover {
+    cursor: pointer;
+    
+}
