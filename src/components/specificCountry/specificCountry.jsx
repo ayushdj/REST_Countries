@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const SpecificCountry = () => {
 
     const obj = useParams();
-    const [currentCountryName, setCurrentCountryName] = useState(obj.specificCountryName);
+    // const [currentCountryName, setCurrentCountryName] = useState(obj.specificCountryName);
     const [currCountryBorders, setCurrCountryBorders] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [error, setError] = useState("");
@@ -96,7 +96,7 @@ const SpecificCountry = () => {
      * This hook runs when first loading the page
      */
     useEffect(() => {
-        retrieveSpecificCountryData(currentCountryName);
+        retrieveSpecificCountryData(obj.specificCountryName);
     });
 
     if (error !== '') {
