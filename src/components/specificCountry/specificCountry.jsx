@@ -15,19 +15,6 @@ const SpecificCountry = () => {
     const navigate = useNavigate();
     const [currLanguages, setCurrLanguages] = useState('');
 
-
-    
-
-    /**
-     * Handler function to navigate to a new specificCountry page 
-     * @param {*} countryName 
-     */
-    // const navigateToNewPage = (countryName) => {
-    //     navigate(`/specificCountry/${countryName}`, { replace: true });
-    //     navigate(0);
-
-    // }
-
     /**
      * If the user presses back, then we need to go back
      */
@@ -39,7 +26,7 @@ const SpecificCountry = () => {
      * This hook runs when first loading the page
      */
     useEffect(() => {
-        /**
+    /**
      * This retrieves the country's data
      * @param {*} countryName 
      */
@@ -57,6 +44,14 @@ const SpecificCountry = () => {
             return;
         } 
         const specificCountryData = await response.json();
+        // set the languages as one large string
+        let languages = '';
+        for (let i = 0; i < specificCountryData[0].languages.length; i++) {
+            languages = languages + specificCountryData[0].languages[i].name + ', '
+        }
+        languages = languages.substring(0, languages.length - 2);
+        setCurrLanguages(languages);   
+
         setCurrCountryObject(specificCountryData[0]);
         setError('');
         setIsLoaded(true);
@@ -85,15 +80,6 @@ const SpecificCountry = () => {
                 }
                 setIsLoaded(true);
                 setCurrCountryBorders(names);
-
-                // set the languages as one large string
-                let languages = '';
-                for (let i = 0; i < specificCountryData[0].languages.length; i++) {
-                    languages = languages + specificCountryData[0].languages[i].name + ', '
-                }
-                 
-                languages = languages.substring(0, languages.length - 2);
-                setCurrLanguages(languages);   
             }            
         }
     }
