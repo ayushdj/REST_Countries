@@ -11,7 +11,7 @@ module.exports = {
       
     },
     screens: {
-      'xxs':'10px',
+      'xxs':'100px',
 
       'xs': '400px',
 
@@ -38,9 +38,7 @@ module.exports = {
 
   ],
   variants: {
-    extend: {
-      display: ['group-focus']
-    }
+    
   }
   
 

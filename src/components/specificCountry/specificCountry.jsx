@@ -3,11 +3,11 @@ import './specificCountry.css';
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import apiFunctions from '../../api/api';
 
 const SpecificCountry = () => {
 
     const obj = useParams();
-    const [currentCountryName, setCurrentCountryName] = useState(obj.specificCountryName);
     const [currCountryBorders, setCurrCountryBorders] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [error, setError] = useState("");
@@ -23,26 +23,36 @@ const SpecificCountry = () => {
     }
 
     /**
+     * this navigates to a new country
+     * @param {*} countryName 
+     */
+    const navigateForward = (countryName) => {
+        window.location.href = `/specificCountry/${countryName}`
+    }
+
+    /**
      * This hook runs when first loading the page
      */
     useEffect(() => {
+
     /**
      * This retrieves the country's data
      * @param {*} countryName 
      */
     const retrieveSpecificCountryData = async (countryName) => {
         // make the API call
-        const response = await fetch(`https://restcountries.com/v2/name/${countryName}/?fullText=true`, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                },
-             });
-        // if we get don't get a 200 response we need to let the user know
-        if (!response.ok) {
-            setError("Unable to load the data for " + obj.specificCountryName + ". Please reload the page and try again");
+        const response = await apiFunctions.getCountryByName(countryName);
+
+        // we need to validate the response
+        let return_val = apiFunctions.validateResponse(response);
+
+        if (return_val !== '') {
             return;
-        } 
+        }
+
+        setError(return_val);
+        
+        
         const specificCountryData = await response.json();
         // set the languages as one large string
         let languages = '';
@@ -55,6 +65,7 @@ const SpecificCountry = () => {
         setCurrCountryObject(specificCountryData[0]);
         setError('');
         setIsLoaded(true);
+
         
         // if the country actually has borders, then we set the borders array
         if (specificCountryData[0].borders !== undefined) {
@@ -62,7 +73,7 @@ const SpecificCountry = () => {
             // the borders are strings in an array so we need to join them and make the API call
             // to get the list of countries
             let joinedCodes = specificCountryData[0].borders.join();
-            const response1 = await fetch(`https://restcountries.com/v2/alpha?codes=${joinedCodes}`);
+            const response1 = await apiFunctions.getBorderInformation(joinedCodes);
 
             // again if we get anything but a 200 response, we need to let the user know
             if (!response1.ok) {
@@ -71,7 +82,6 @@ const SpecificCountry = () => {
             } 
             
             else {
-
                 // await the data 
                 const jsonData = await response1.json();
                 let names = [];
@@ -83,40 +93,30 @@ const SpecificCountry = () => {
             }            
         }
     }
-    retrieveSpecificCountryData(currentCountryName);
-    }, [currentCountryName, obj.specificCountryName]);
+    retrieveSpecificCountryData(obj.specificCountryName);
+    }, [obj.specificCountryName]);
 
-    if (error !== '') {
+    if (error !== '' || !isLoaded) {
         return (
-        <div className='parent'>
-            <div className="pt-[150px] text-3xl flex justify-center dark:text-black place-items-center">
-                    <center>{error}</center>
+            <div className='parent'>
+                <div className="pt-[150px] text-white text-3xl flex justify-center dark:text-black place-items-center">
+                        <center>{error !== '' ? <div>{error}</div> : <div>Loading...</div>}</center>
+                </div>
             </div>
-
-        </div>
         )
-
     } 
-    else if (!isLoaded) {
-        return (<div className='parent'>
-        <div className="pt-[150px] text-3xl flex justify-center dark:text-black place-items-center">
-                <center>{error}</center>
-        </div>
-
-    </div>)
-    }
     
     else {
         return (
             <div className="parent">
                 <div className="back_button pt-[150px]">
-                    <button className="back_button_color shadow-[0_0_40px_rgba(0,0,0,0.2)] cursor-pointer hover:scale-105 hover:z-1 duration-300 dark:text-black dark:bg-white pl-6 pr-6 pt-2 pb-2" uppercase="false" onClick={() => navigateBack()}><i class="fas fa-arrow-left"></i> Back</button>
+                    <button className="back_button_color shadow-[0_0_40px_rgba(0,0,0,0.2)] cursor-pointer hover:scale-105 hover:z-1 duration-300 dark:text-black dark:bg-white pl-6 pr-6 pt-2 pb-2" uppercase="false" onClick={() => navigateBack()}><i className="fas fa-arrow-left"></i> Back</button>
                 </div>
                 <div className="flags_and_stats">
-                    <div className="flag_left md:inline-block md:w-[50%]">
-                        <img src={currCountryObj.flag} className="country_flag w-full object-cover h-full" alt="country flag"/>
+                    <div className="flag_left md:inline-block xxs:w-full md:w-[50%]">
+                        <img src={currCountryObj.flag} className="country_flag shadow-[0_0_40px_rgba(0,0,0,0.2)]" alt="country flag"/>
                     </div>
-                    <div className="information_right md:inline-block md:w-[50%]">
+                    <div className="information_right mt-4 md:inline-block xxs:w-full md:w-[50%]">
                         <div>
                             <h5 className="country_name dark:text-black">{currCountryObj.name}</h5>
                         </div>
@@ -135,15 +135,11 @@ const SpecificCountry = () => {
                             </div>
                         </div>
 
-                        <div style={{color:'white'}} className="sm:flex-wrap flex flex-row">
-                            
-                            {currCountryBorders.length === 0 ?  <span> </span> : <><span className="dark:text-black" style={{ color: 'white' }}> Borders: &nbsp; </span> <span id="borders">
+                        <div style={{color:'white'}} className="flex-wrap flex">
+                            {currCountryBorders.length === 0 ?  <span> </span> : <><div className="dark:text-black text-white mr-[3px] mt-[5px]"> Borders Countries: </div> <div id="borders">
                                 {currCountryBorders.map((each) => (
-                                    <button onClick={() => setCurrentCountryName(each)} className="back_button_color dark:text-black cursor-pointer hover:scale-105 hover:z-1 duration-300 dark:bg-white shadow-[0_0_40px_rgba(0,0,0,0.2)] mr-2 pl-4 pr-4 pt-2 pb-2 mb-2" value={each}>{each}</button>))}
-                            </span></>}
-
-                            
-                            
+                                    <button key={each} onClick={() => navigateForward(each)} className="back_button_color dark:text-black cursor-pointer hover:scale-105 hover:z-1 duration-300 dark:bg-white shadow-[0_0_40px_rgba(0,0,0,0.2)] mr-2 pl-4 pr-4 pt-2 pb-2 mb-2" value={each}>{each}</button>))}
+                            </div></>}
                         </div>    
                     </div>
                 </div>

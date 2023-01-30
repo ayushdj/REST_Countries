@@ -48,7 +48,7 @@
 @media (max-width: 250px) {
     .country_name {
         color:#ffffff;
-        font-size:30px;
+        font-size:20px;
         font-weight: 800;
         font-family: 'Nunito Sans', sans-serif;
         margin-top:20px;
@@ -71,7 +71,6 @@
         font-weight: 800;
         font-family: 'Nunito Sans', sans-serif;
         margin-right:300px;
-        white-space: nowrap;
         margin-top:20px;
         margin-bottom:20px;
     }
@@ -99,6 +98,8 @@
         margin-right:300px;
         margin-top:20px;
         margin-bottom:20px;
+        width:100%;
+
     }
     .stats_div {
         flex-direction: column;
@@ -108,7 +109,6 @@
     }
     #borders{
         display:block;
-        /* white-space: post; */
     }
 }
 @media (min-width: 768px) {
@@ -125,8 +125,37 @@
         margin-bottom: 30px;
     }
     .country_flag {
-        height:80%;
         max-width: 100%;
+        height:auto;
+        width: auto\9;
+    }
+
+    .flag_left {
+        transform: translateY(8%);
+
+    }
+    .country_name {
+        color:#ffffff;
+        font-size:40px;
+        font-weight: 800;
+        font-family: 'Nunito Sans', sans-serif;
+        margin-right:300px;
+        margin-top:20px;
+        margin-bottom:20px;
+        width:100%;
+    }
+
+}
+
+@media (min-width:1400px) {
+    .information_right {
+        margin-bottom: 150px;
+    }
+
+    .country_flag {
+        max-width: 100%;
+        height:500px;
+        width: auto\9;
     }
 
     .country_name {
@@ -137,16 +166,12 @@
         margin-right:300px;
         margin-top:20px;
         margin-bottom:20px;
+        width:100%;
+
     }
 
-}
-
-@media (min-width:960px) {
-    .information_right {
-        margin-bottom: 150px;
-    }
-
-    .country_flag {
-        height:90%;
+    .flag_left {
+        transform: translateY(2%);
+        
     }
 }

@@ -15,12 +15,12 @@ import SpecificCountry from './components/specificCountry/specificCountry';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <Header/>
       <div>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={[<Countries/>]} />
-            <Route path="/specificCountry/:specificCountryName" element={<SpecificCountry/>}/>
+        <Header key={0}/>
+        <BrowserRouter key="{-1}">
+          <Routes key="0">
+            <Route key="1" path="/" element={[<Countries key={1}/>]} />
+            <Route key="2" path="/specificCountry/:specificCountryName" element={<SpecificCountry key={2}/>}/>
           </Routes>
         </BrowserRouter>
       </div>

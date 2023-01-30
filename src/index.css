@@ -11,13 +11,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: hsl(207, 26%, 17%);
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap; */
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
-
+:root {
+  --lighter_dark_mode: hsl(209, 23%, 22%);
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

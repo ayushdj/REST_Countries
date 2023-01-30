@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@800&display=swap');
 
+
 .fa-moon-white {
     color:white;
 }
@@ -28,4 +29,61 @@
 
 .text:hover {
     cursor: pointer;
+}
+
+@media (max-width:335px) {
+    .actual_text {
+        font-size: 12px;
+    }
+    
+}
+
+@media (max-width:767px) {
+    .dm-text {
+        font-size:15px;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width:445px) {
+    .actual_text {
+        font-size: 20px;
+    }
+}
+
+@media (max-width:330px) {
+    .actual_text {
+        font-size: 15px;
+    }
+
+    .dm-text {
+        font-size:12px;
+    }
+    
+}
+
+@media (max-width:273px) {
+    .actual_text {
+        font-size: 12px;
+    }
+    .dm-text {
+        font-size:12px;
+    }
+}
+
+@media (max-width:230px) {
+    .actual_text {
+        font-size: 10px;
+    }
+    .dm-text {
+        font-size:10px;
+    }
+    
+}
+
+@media (max-width:193px) {
+    .actual_text {
+        white-space: nowrap;
+    }
+    
 }
