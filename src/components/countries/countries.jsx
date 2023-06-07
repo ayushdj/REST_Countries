@@ -355,7 +355,6 @@ const Countries = () => {
                     {allCountries.map((each, idx) => (
                         <Link to={`/specificCountry/${each.name}`} style={{textDecoration:'none', color:'white'}} key={each.alpha3Code}>
                             <CountryCard each={each}/>
-
                         </Link>
                     ))}
                 </div>

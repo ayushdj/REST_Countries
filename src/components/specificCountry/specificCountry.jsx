@@ -27,7 +27,10 @@ const SpecificCountry = () => {
      * @param {*} countryName 
      */
     const navigateForward = (countryName) => {
-        window.location.href = `/specificCountry/${countryName}`
+        // window.location.href = `/specificCountry/${countryName}`
+        // window.open(`/specificCountry/${countryName}`);
+        // history.push(`/specificCountry/${countryName}`)
+        navigate(`/specificCountry/${countryName}`)
     }
 
     /**
