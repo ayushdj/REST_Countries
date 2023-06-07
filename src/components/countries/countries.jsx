@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import {FaSearch} from 'react-icons/fa';
 import asyncFunctions from '../../api/api';
+import CountryCard from './countryCard/countryCard';
 
 /**
  * Represents all the countries - makes an API call to the countries API
@@ -127,7 +128,6 @@ const Countries = () => {
                 setError("Invalid search - Please try again.");
                 setIsLoaded(true);
             } 
-            // 
             else {
                 setAllCountries(filteredCountriesByRegion);
                 setError("");
@@ -138,7 +138,6 @@ const Countries = () => {
         } 
         // If the user selects all, then we just retrieve all the data again.
         else {
-            // retrieveAllData();
             setCurrRegion('');
             let initialState = localStorage.getItem("rest_countries_initial_state");
             let actualInitialState = JSON.parse(initialState);
@@ -355,17 +354,8 @@ const Countries = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-16 mt-5 justify-center"> 
                     {allCountries.map((each, idx) => (
                         <Link to={`/specificCountry/${each.name}`} style={{textDecoration:'none', color:'white'}} key={each.alpha3Code}>
-                            <div className="overflow-hidden rounded shadow-xl h-full cursor-pointer hover:scale-105 hover:z-1 duration-300 mb-8 
-                            card_body dark:bg-white">
-                                <img src={each.flags.png} alt="country_image" className="w-full h-40 object-cover"/>
-                                <div className='pl-4 flex flex-col'>
-                                    <h5 className="font-bold mt-4 card_title dark:text-black">{each.name}</h5>
-                                    <span className="block card_stats dark:text-black">Population: {each.population.toLocaleString()}</span>
-                                    <span className="block card_stats dark:text-black" >Region: {each.region}</span> 
-                                    <span className="block card_stats dark:text-black">Capital: {each.capital}</span>
-                                </div>
+                            <CountryCard each={each}/>
 
-                            </div>
                         </Link>
                     ))}
                 </div>
